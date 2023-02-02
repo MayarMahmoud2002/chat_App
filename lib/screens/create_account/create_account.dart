@@ -1,18 +1,38 @@
+import 'package:chat_app/shared/base.dart';
 import 'package:chat_app/screens/chat_app/chat_app.dart';
+import 'package:chat_app/screens/create_account/create_account_navigator.dart';
 import 'package:chat_app/screens/create_account/create_account_viewModel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 //view
 
-class accountScreen extends StatelessWidget
+class accountScreen extends StatefulWidget
 {
+
    static const routeName='accountScreen';
+
+  @override
+  State<accountScreen> createState() => _accountScreenState();
+}
+
+class _accountScreenState extends BaseView <accountScreen, createAccountViewModel> implements CreateAccountNavigator {
+
    GlobalKey<FormState> formkey = GlobalKey<FormState>();
+
    var passwordController = TextEditingController();
+
    var emailController = TextEditingController();
+
    //object from view model
-   createAccountViewModel viewModel =createAccountViewModel();
+   // createAccountViewModel viewModel =createAccountViewModel();
+   @override
+  void initState() {
+    // TODO: implement initState
+     super.initState();
+    viewModel.navigator= this;
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -333,19 +353,21 @@ class accountScreen extends StatelessWidget
                              // crossAxisAlignment: CrossAxisAlignment.start,
                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                              children: [
-                               Text('Create Account',
-                                 style: TextStyle(
-                                   fontSize: 25.0,
-                                   fontWeight: FontWeight.bold,
+                               Center(
+                                 child: Text('Create Account',
+                                   style: TextStyle(
+                                     fontSize: 25.0,
+                                     fontWeight: FontWeight.bold,
+                                   ),
                                  ),
                                ),
                                SizedBox(
                                  width: 80.0,
                                ),
-                               Icon(
-                                 Icons.forward,
-                                 size: 30.0,
-                               ),
+                               // Icon(
+                               //   Icons.forward,
+                               //   size: 30.0,
+                               // ),
                              ],
                            ),
                            style: ElevatedButton.styleFrom(
@@ -368,13 +390,26 @@ class accountScreen extends StatelessWidget
       ),
     );
   }
+
   void GoToNextScreen(context) async
   {
     if (formkey.currentState!.validate())
     {
       viewModel.createAccountlisteners(emailController.text, passwordController.text);
 
+
       // Navigator.pushReplacementNamed(context, ChatApp.routeName);
 
     }
-}}
+}
+
+
+
+  @override
+  createAccountViewModel initViewModel() {
+     return createAccountViewModel();
+  }
+
+  @override
+  void goToHome() {
+  }}
