@@ -1,3 +1,5 @@
+import 'package:chat_app/models/my_user.dart';
+import 'package:chat_app/screens/home_screen/home_screen.dart';
 import 'package:chat_app/screens/login_screen/login_navigator.dart';
 import 'package:chat_app/screens/login_screen/login_view_model.dart';
 import 'package:chat_app/shared/base.dart';
@@ -233,6 +235,11 @@ class _loginViewState extends BaseView<loginView, loginViewModel>
   @override
   loginViewModel initViewModel() {
     return loginViewModel();
+  }
+
+  @override
+  void goToHome(MyUser myUser) {
+    Navigator.pushReplacementNamed(context, HomeScreen.routeName);
   }
 }
 

@@ -1,3 +1,4 @@
+import 'package:chat_app/addRoom/add_room_screen.dart';
 import 'package:flutter/material.dart';
 
 class ChatApp extends StatelessWidget {
@@ -10,8 +11,15 @@ static const routeName = 'ChatApp';
           fit: BoxFit.fill,
           width: double.infinity,
         ),
-
         Scaffold(
+          floatingActionButton: FloatingActionButton(
+            onPressed: ()
+            {
+              Navigator.pushNamed(context, AddRoomScreen.routeName);
+            },
+            child: Icon(Icons.add),
+
+          ),
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             backgroundColor: Colors.transparent,
@@ -30,7 +38,7 @@ static const routeName = 'ChatApp';
             title: Padding(
               padding: const EdgeInsets.only(left: 40.0, top: 30.0),
               child: Text(
-                'Chat App',
+                'Your Rooms',
                 style: TextStyle(
                   fontSize: 25.0,
                   fontWeight: FontWeight.bold,

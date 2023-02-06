@@ -1,3 +1,5 @@
+import 'package:chat_app/models/my_user.dart';
+import 'package:chat_app/screens/home_screen/home_screen.dart';
 import 'package:chat_app/shared/base.dart';
 import 'package:chat_app/screens/chat_app/chat_app.dart';
 import 'package:chat_app/screens/create_account/create_account_navigator.dart';
@@ -7,31 +9,31 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 //view
 
-class accountScreen extends StatefulWidget
-{
-
-   static const routeName='accountScreen';
+class accountScreen extends StatefulWidget {
+  static const routeName = 'accountScreen';
 
   @override
   State<accountScreen> createState() => _accountScreenState();
 }
 
-class _accountScreenState extends BaseView <accountScreen, createAccountViewModel> implements CreateAccountNavigator {
+class _accountScreenState
+    extends BaseView<accountScreen, createAccountViewModel>
+    implements CreateAccountNavigator {
+  GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
-   GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  var passwordController = TextEditingController();
+  var emailController = TextEditingController();
 
-   var passwordController = TextEditingController();
+  var fNameController = TextEditingController();
+  var lNameController = TextEditingController();
 
-   var emailController = TextEditingController();
-
-   //object from view model
-   // createAccountViewModel viewModel =createAccountViewModel();
-   @override
+  //object from view model
+  // createAccountViewModel viewModel =createAccountViewModel();
+  @override
   void initState() {
     // TODO: implement initState
-     super.initState();
-    viewModel.navigator= this;
-
+    super.initState();
+    viewModel.navigator = this;
   }
 
   @override
@@ -39,9 +41,10 @@ class _accountScreenState extends BaseView <accountScreen, createAccountViewMode
     return ChangeNotifierProvider(
       create: (BuildContext context) => viewModel,
       child: Stack(
-        children:[
-          Image.asset('assets/images/SIGN UP - PERSONAL.png',
-          fit: BoxFit.fill,
+        children: [
+          Image.asset(
+            'assets/images/SIGN UP - PERSONAL.png',
+            fit: BoxFit.fill,
             width: double.infinity,
           ),
           Scaffold(
@@ -59,13 +62,12 @@ class _accountScreenState extends BaseView <accountScreen, createAccountViewMode
                     color: Colors.white,
                   ),
                   textAlign: TextAlign.center,
-
-
                 ),
               ),
             ),
             body: Padding(
-              padding: const EdgeInsets.only(left: 20.0 , right: 20.0,top: 40.0),
+              padding:
+                  const EdgeInsets.only(left: 20.0, right: 20.0, top: 40.0),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -76,22 +78,20 @@ class _accountScreenState extends BaseView <accountScreen, createAccountViewMode
                         child: Column(
                           children: [
                             TextFormField(
-                              validator: (value)
-                              {
-                                if (value == null || value.trim()=='')
-                                {
-                                  return ('Please Enter First Name');
-                                }
-                                return null;
-
-                              },
+                                controller: fNameController,
+                                validator: (value) {
+                                  if (value == null || value.trim() == '') {
+                                    return ('Please Enter First Name');
+                                  }
+                                  return null;
+                                },
                                 textInputAction: TextInputAction.next,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 20.0,
                                 ),
                                 decoration: InputDecoration(
-                                  hintText:'First Name',
+                                  hintText: 'First Name',
                                   hintStyle: TextStyle(
                                     color: Colors.black38,
                                   ),
@@ -100,60 +100,50 @@ class _accountScreenState extends BaseView <accountScreen, createAccountViewMode
                                     borderSide: BorderSide(
                                       color: Colors.blueAccent,
                                     ),
-
                                   ),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20.0),
                                     borderSide: BorderSide(
                                       color: Colors.blueAccent,
                                     ),
-
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20.0),
                                     borderSide: BorderSide(
                                       color: Colors.blueAccent,
                                     ),
-
                                   ),
                                   disabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20.0),
                                     borderSide: BorderSide(
                                       color: Colors.blueAccent,
                                     ),
-
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20.0),
                                     borderSide: BorderSide(
                                       color: Colors.blueAccent,
                                     ),
-
                                   ),
-                                )
-                            ),
+                                )),
                             SizedBox(
                               height: 10.0,
                             ),
                             TextFormField(
-
-                                validator: (value)
-                              {
-                                if (value==null || value.trim()=='')
-                                {
-                                  return('Please Enter Last Name');
-
-                                }
-                                return null;
-                              },
+                                controller: lNameController,
+                                validator: (value) {
+                                  if (value == null || value.trim() == '') {
+                                    return ('Please Enter Last Name');
+                                  }
+                                  return null;
+                                },
                                 textInputAction: TextInputAction.next,
-
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 20.0,
                                 ),
                                 decoration: InputDecoration(
-                                  hintText:'Last Name',
+                                  hintText: 'Last Name',
                                   hintStyle: TextStyle(
                                     color: Colors.black38,
                                   ),
@@ -162,67 +152,56 @@ class _accountScreenState extends BaseView <accountScreen, createAccountViewMode
                                     borderSide: BorderSide(
                                       color: Colors.blueAccent,
                                     ),
-
                                   ),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20.0),
                                     borderSide: BorderSide(
                                       color: Colors.blueAccent,
                                     ),
-
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20.0),
                                     borderSide: BorderSide(
                                       color: Colors.blueAccent,
                                     ),
-
                                   ),
                                   disabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20.0),
                                     borderSide: BorderSide(
                                       color: Colors.blueAccent,
                                     ),
-
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20.0),
                                     borderSide: BorderSide(
                                       color: Colors.blueAccent,
                                     ),
-
                                   ),
-                                )
-                            ),
+                                )),
                             SizedBox(
                               height: 10.0,
                             ),
                             TextFormField(
-                              controller: emailController,
-
-                                validator: (value)
-                              {
-                                if (value==null || value.trim()=='')
-                                {
-                                  return ('Please Enter Your Mail');
-                                }
-                                final bool emailValid =
-                                RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                    .hasMatch(value);
-                                if (!emailValid)
-                                {
-                                  return 'Please Enter valid email';
-                                }
-                                return null;
-                              },
+                                controller: emailController,
+                                validator: (value) {
+                                  if (value == null || value.trim() == '') {
+                                    return ('Please Enter Your Mail');
+                                  }
+                                  final bool emailValid = RegExp(
+                                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                      .hasMatch(value);
+                                  if (!emailValid) {
+                                    return 'Please Enter valid email';
+                                  }
+                                  return null;
+                                },
                                 textInputAction: TextInputAction.next,
-
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 20.0,
                                 ),
                                 decoration: InputDecoration(
-                                  hintText:'Email',
+                                  hintText: 'Email',
                                   hintStyle: TextStyle(
                                     color: Colors.black38,
                                   ),
@@ -231,56 +210,44 @@ class _accountScreenState extends BaseView <accountScreen, createAccountViewMode
                                     borderSide: BorderSide(
                                       color: Colors.blueAccent,
                                     ),
-
                                   ),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20.0),
                                     borderSide: BorderSide(
                                       color: Colors.blueAccent,
                                     ),
-
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20.0),
                                     borderSide: BorderSide(
                                       color: Colors.blueAccent,
                                     ),
-
                                   ),
                                   disabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20.0),
                                     borderSide: BorderSide(
                                       color: Colors.blueAccent,
                                     ),
-
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20.0),
                                     borderSide: BorderSide(
                                       color: Colors.blueAccent,
                                     ),
-
                                   ),
-                                )
-                            ),
+                                )),
                             SizedBox(
                               height: 10.0,
                             ),
                             TextFormField(
                                 controller: passwordController,
-
-                                validator: (value)
-                                {
-                                  if (value==null || value.trim()=='')
-                                  {
+                                validator: (value) {
+                                  if (value == null || value.trim() == '') {
                                     return ('Please Enter Your Mail');
                                   }
                                   return null;
-
                                 },
                                 textInputAction: TextInputAction.next,
-
-
                                 obscureText: true,
                                 // obscuringCharacter: '*',
                                 style: TextStyle(
@@ -288,7 +255,7 @@ class _accountScreenState extends BaseView <accountScreen, createAccountViewMode
                                   fontSize: 20.0,
                                 ),
                                 decoration: InputDecoration(
-                                  hintText:'Password',
+                                  hintText: 'Password',
                                   hintStyle: TextStyle(
                                     color: Colors.black38,
                                   ),
@@ -297,90 +264,79 @@ class _accountScreenState extends BaseView <accountScreen, createAccountViewMode
                                     borderSide: BorderSide(
                                       color: Colors.blueAccent,
                                     ),
-
                                   ),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20.0),
                                     borderSide: BorderSide(
                                       color: Colors.blueAccent,
                                     ),
-
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20.0),
                                     borderSide: BorderSide(
                                       color: Colors.blueAccent,
                                     ),
-
                                   ),
                                   disabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20.0),
                                     borderSide: BorderSide(
                                       color: Colors.blueAccent,
                                     ),
-
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20.0),
                                     borderSide: BorderSide(
                                       color: Colors.blueAccent,
                                     ),
-
                                   ),
-                                )
-                            ),
+                                )),
                           ],
                         ),
                       ),
-
                     ),
                     SizedBox(
                       height: 10.0,
                     ),
-                   Stack(
-                     children: [
-                       Container(
-                         width: double.infinity,
-                         height: 50.0,
-                         child: ElevatedButton(
-                           onPressed: ()
-                           {
-
-                             GoToNextScreen(context);
-
-                           },
-                           child: Row(
-                             // crossAxisAlignment: CrossAxisAlignment.start,
-                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                             children: [
-                               Center(
-                                 child: Text('Create Account',
-                                   style: TextStyle(
-                                     fontSize: 25.0,
-                                     fontWeight: FontWeight.bold,
-                                   ),
-                                 ),
-                               ),
-                               SizedBox(
-                                 width: 80.0,
-                               ),
-                               // Icon(
-                               //   Icons.forward,
-                               //   size: 30.0,
-                               // ),
-                             ],
-                           ),
-                           style: ElevatedButton.styleFrom(
-                             primary: Color.fromRGBO(53, 152, 219, 1.0), // background
-                             onPrimary: Colors.white, // foreground
-                           ),
-                         ),
-                       ),
-
-                     ],
-                   ),
-
-
+                    Stack(
+                      children: [
+                        Container(
+                          width: double.infinity,
+                          height: 50.0,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              GoToNextScreen(context);
+                            },
+                            child: Row(
+                              // crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Center(
+                                  child: Text(
+                                    'Create Account',
+                                    style: TextStyle(
+                                      fontSize: 25.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 80.0,
+                                ),
+                                // Icon(
+                                //   Icons.forward,
+                                //   size: 30.0,
+                                // ),
+                              ],
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              primary: Color.fromRGBO(53, 152, 219, 1.0),
+                              // background
+                              onPrimary: Colors.white, // foreground
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -391,25 +347,24 @@ class _accountScreenState extends BaseView <accountScreen, createAccountViewMode
     );
   }
 
-  void GoToNextScreen(context) async
-  {
-    if (formkey.currentState!.validate())
-    {
-      viewModel.createAccountlisteners(emailController.text, passwordController.text);
-
+  void GoToNextScreen(context) async {
+    if (formkey.currentState!.validate()) {
+      viewModel.createAccountlisteners(emailController.text,
+          passwordController.text, fNameController.text, lNameController.text);
 
       // Navigator.pushReplacementNamed(context, ChatApp.routeName);
 
     }
-}
-
-
-
-  @override
-  createAccountViewModel initViewModel() {
-     return createAccountViewModel();
   }
 
   @override
-  void goToHome() {
-  }}
+  createAccountViewModel initViewModel() {
+    return createAccountViewModel();
+  }
+
+  @override
+  void goToHome(MyUser myUser)
+  {
+    Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+  }
+}
