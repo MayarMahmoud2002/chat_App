@@ -1,4 +1,6 @@
 import 'package:chat_app/models/my_user.dart';
+import 'package:chat_app/providers/my_provider.dart';
+import 'package:chat_app/screens/create_account/create_account.dart';
 import 'package:chat_app/screens/home_screen/home_screen.dart';
 import 'package:chat_app/screens/login_screen/login_navigator.dart';
 import 'package:chat_app/screens/login_screen/login_view_model.dart';
@@ -223,6 +225,18 @@ class _loginViewState extends BaseView<loginView, loginViewModel>
 
                           ],
                         ),
+                        TextButton(
+                            onPressed: ()
+                            {
+                              Navigator.pushNamed(context, accountScreen.routeName);
+                            },
+                            child: Text ('Have an Account ?',
+
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                            ),),
+                        )
 
                   ]))))
         ]));
@@ -239,6 +253,7 @@ class _loginViewState extends BaseView<loginView, loginViewModel>
 
   @override
   void goToHome(MyUser myUser) {
+    var provider = Provider.of<MyProvider>(context , listen: false);
     Navigator.pushReplacementNamed(context, HomeScreen.routeName);
   }
 }

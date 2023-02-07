@@ -11,6 +11,10 @@ class BaseViewModel <NAV extends BaseNavigator> extends ChangeNotifier
 {
   NAV? navigator = null;
 
+  // void readRooms()
+  // {
+  // }
+
 }
 abstract class BaseView<T extends StatefulWidget,VM extends BaseViewModel> extends State<T> implements BaseNavigator
 {

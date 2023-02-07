@@ -4,6 +4,6 @@ import 'package:chat_app/shared/base.dart';
 
 abstract class AddRoomNavigator extends BaseNavigator
 {
-
+void RoomCreated();
 
 }

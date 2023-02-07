@@ -1,7 +1,7 @@
 import 'package:chat_app/models/my_user.dart';
+import 'package:chat_app/providers/my_provider.dart';
 import 'package:chat_app/screens/home_screen/home_screen.dart';
 import 'package:chat_app/shared/base.dart';
-import 'package:chat_app/screens/chat_app/chat_app.dart';
 import 'package:chat_app/screens/create_account/create_account_navigator.dart';
 import 'package:chat_app/screens/create_account/create_account_viewModel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -23,7 +23,6 @@ class _accountScreenState
 
   var passwordController = TextEditingController();
   var emailController = TextEditingController();
-
   var fNameController = TextEditingController();
   var lNameController = TextEditingController();
 
@@ -365,6 +364,7 @@ class _accountScreenState
   @override
   void goToHome(MyUser myUser)
   {
+    var provider = Provider.of<MyProvider>(context, listen: false);
     Navigator.pushReplacementNamed(context, HomeScreen.routeName);
   }
 }

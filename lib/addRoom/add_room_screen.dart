@@ -3,7 +3,7 @@ import 'package:chat_app/addRoom/add_room_navigator.dart';
 import 'package:chat_app/addRoom/add_room_view_model.dart';
 import 'package:chat_app/addRoom/drop_list_model.dart';
 import 'package:chat_app/addRoom/file%20select_drop_list.dart';
-import 'package:chat_app/screens/chat_app/chat_app.dart';
+import 'package:chat_app/models/category.dart';
 import 'package:chat_app/shared/base.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,8 +14,8 @@ class AddRoomScreen extends StatefulWidget {
   @override
   State<AddRoomScreen> createState() => _AddRoomScreenState();
 }
-
 class _AddRoomScreenState extends BaseView<AddRoomScreen, AddRoomViewModel>
+
     implements AddRoomNavigator {
   DropListModel dropListModel = DropListModel([OptionItem(id: "1", title: "Sports"), OptionItem(id: "2", title: "Music") , OptionItem(id: "3", title: "Movies")]);
   OptionItem optionItemSelected = OptionItem(id: "null", title: "Select Room Category");
@@ -23,18 +23,22 @@ class _AddRoomScreenState extends BaseView<AddRoomScreen, AddRoomViewModel>
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   var nameRoom = TextEditingController();
   var describRoom = TextEditingController();
+  var categories  =RoomCategory.getCategories();
+  late RoomCategory selectedCategory;
+
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     viewModel.navigator = this;
+    selectedCategory = categories[0];
   }
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (BuildContext context) => viewModel,
+        create: (context) => viewModel,
         child: Stack(children: [
           Image.asset(
             'assets/images/SIGN UP - PERSONAL.png',
@@ -146,21 +150,51 @@ class _AddRoomScreenState extends BaseView<AddRoomScreen, AddRoomViewModel>
                                 SizedBox(
                                   height: 10.0,
                                 ),
-                                SelectDropList(
-                                  this.optionItemSelected,
-                                  this.dropListModel,
-                                      (optionItem){
-                                    optionItemSelected = optionItem;
-                                    setState(() {
+                                // SelectDropList(
+                                //   this.optionItemSelected,
+                                //   this.dropListModel,
+                                //       (optionItem){
+                                //     optionItemSelected = optionItem;
+                                //     setState(() {
+                                //
+                                //     });
+                                //   },
+                                // ),
+                                Container(
+                                  width: double.infinity,
+                                  child: DropdownButton<RoomCategory>(
+                                    value: selectedCategory ,
+                                      items: categories.map((cat) =>
+                                          DropdownMenuItem<RoomCategory>(
+                                              value: cat,
+                                              child:
+                                          Row(children: [
+                                            Image.asset(cat.image),
+                                            Text(cat.name),
+                                          ],))
+                                          ).toList(),
+                                      onChanged: (category)
+                                      {
+                                        if (category==null)
+                                        {
+                                          return;
 
-                                    });
-                                  },
+                                        }else
+                                        {
+                                          selectedCategory = category;
+
+                                        }
+                                        setState(() {
+
+                                        });
+
+                                      }),
                                 ),
                                 SizedBox(
                                   height: 10.0,
                                 ),
                                 TextFormField(
-                                  maxLines: 3,
+                                  // maxLines: 3,
                                     controller: describRoom,
                                     validator: (value) {
                                       if (value == null || value.trim() == '') {
@@ -222,7 +256,9 @@ class _AddRoomScreenState extends BaseView<AddRoomScreen, AddRoomViewModel>
                                       ),
                                       child: ElevatedButton(
                                         onPressed: () {
-                                          GoToNextScreen(context);
+                                          ValidateForm(context);
+
+
                                         },
                                         child: Row(
                                           // crossAxisAlignment: CrossAxisAlignment.start,
@@ -268,18 +304,25 @@ class _AddRoomScreenState extends BaseView<AddRoomScreen, AddRoomViewModel>
         ]));
   }
 
-  void GoToNextScreen(BuildContext context) {
+  void ValidateForm (BuildContext context) {
     if (formkey.currentState!.validate()) {
       Navigator.pop(context);
-      viewModel.AddRoomsToDB(nameRoom.text, describRoom.text,optionItemSelected.id);
+      viewModel.AddRoomsToDB(nameRoom.text, describRoom.text,selectedCategory.id);
 
 
     }
   }
 
+
+
+  @override
+  void RoomCreated() {
+    Navigator.pop(context);
+  }
+
   @override
   AddRoomViewModel initViewModel() {
-    return AddRoomViewModel();
+return AddRoomViewModel() ;
   }
 
 

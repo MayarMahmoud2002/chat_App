@@ -32,7 +32,7 @@ class DatabaseUtils
     return FirebaseFirestore.instance.collection(Rooms.COLLECTION_NAME)
         .withConverter<Rooms>(fromFirestore: (snapshot , options) =>
         Rooms.fromJson(snapshot.data()!),
-      toFirestore: (value , options) => value.toJson(),);
+      toFirestore: (room , options) => room.toJson(),);
   }
 
   static Future<void> AddRoomsToFirestore(Rooms rooms)
@@ -43,6 +43,13 @@ class DatabaseUtils
     return docRef.set(rooms);
 
 
+  }
+
+  static Future<List<Rooms>> readRoomsFromFirStore() async
+  {
+    QuerySnapshot<Rooms> snapRooms =await getRoomsCollection().get();
+
+    return snapRooms.docs.map((doc) => doc.data()).toList();
   }
 
   
